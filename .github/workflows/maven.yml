@@ -42,4 +42,4 @@ jobs:
       # Upload the WAR as an artifact using v4
       - name: Upload WAR file to Artifactory
         run: |
-          curl -u "${{ secrets.ARTIFACTORY_USERNAME }}:${{ secrets.ARTIFACTORY_API_KEY }}" -T "target/*.war" "https://trialvvjw1c.jfrog.io/artifactory/new-hello-world-war-libs-snapshot/com/jfrog/my-jfrog-app/hello-world-war-${{ github.run_number }}.war"
+          curl -u "${{ secrets.ARTIFACTORY_USERNAME }}:${{ secrets.ARTIFACTORY_API_KEY }}" -T "target/*.war" "https://triale7u47v.jfrog.io/artifactory/new-hello-word-war-libs-snapshot/com/jfrog/my-jfrog-app/hello-world-war-${{ github.run_number }}.war"
