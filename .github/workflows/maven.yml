@@ -26,6 +26,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+
       # Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -33,12 +34,20 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: 
+
+      - name: Configure Maven settings
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings>
+                  <servers>
+                    <server>
+                      <id>hello-world-war</id>
+                      <username>${{ secrets.ARTIFACTORY_USERNAME }}</username>
+                      <password>${{ secrets.ARTIFACTORY_API_KEY }}</password>
+                    </server>
+                  </servers>
+                </settings>" > ~/.m2/settings.xml
           
       # Build the project with Maven
       - name: Build with Maven
-        run: mvn clean install
-      
-      # Upload the WAR as an artifact using v4
-      - name: Upload WAR file to Artifactory
-        run: |
-          curl -u "${{ secrets.ARTIFACTORY_USERNAME }}:${{ secrets.ARTIFACTORY_API_KEY }}" -T "target/hello-world-war-1.0.0.war" "https://triale7u47v.jfrog.io/artifactory/new-hello-word-war-libs-snapshot/com/jfrog/my-jfrog-app/hello-world-war-${{ github.run_number }}.war"
+        run: mvn clean deploy
