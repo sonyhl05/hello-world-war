@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'slave01' }
+    agent any
 
     environment {
         DOCKER_IMAGE = "sonyhl30/helloworld:${BUILD_NUMBER}"
