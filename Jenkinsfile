@@ -1,10 +1,8 @@
 pipeline {
-    agent any
+    agent { label 'slave' }
 
     environment {
         DOCKER_IMAGE = "sonyhl30/helloworld:${BUILD_NUMBER}"
-        DOCKER_USERNAME = "your-username"
-        DOCKER_PASSWORD = "your-password"
     }
 
     stages {
